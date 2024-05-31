@@ -24,21 +24,21 @@ public class ListProdLocalidad : ControllerBase
         new CatalogoProducto { Id = 2, Name = "NET BOT BLACK SWEATSHIRT", IdLocalidad = 1},
         new CatalogoProducto { Id = 3, Name = ".NET BLUE SWEATSHIRT", IdLocalidad = 1},
         new CatalogoProducto { Id = 4, Name = "CUP WHITE MUG", IdLocalidad = 2},
-        new CatalogoProducto { Id = 5, Name = " ROSLYN RED T-SHIRT", IdLocalidad = 2}
+        new CatalogoProducto { Id = 5, Name = "ROSLYN RED T-SHIRT", IdLocalidad = 2}
     };
 
 
 
-    [HttpGet("{id}")]
-    public ActionResult<IEnumerable<CatalogoProducto>> GetByLocalidad(string id)
+    [HttpGet("{localidad}")]
+    public ActionResult<IEnumerable<CatalogoProducto>> GetByLocalidad(string localidad)
     {
-        if (string.IsNullOrEmpty(id))
+        if (string.IsNullOrEmpty(localidad))
         {
             return BadRequest();
         }
 
-        var idLoc = _localidades.Find(x => x.Name == id);
-        var prods = _productos.Where(x => x.IdLocalidad == idLoc.Id).FirstOrDefault();
+        var idLoc = _localidades.Find(x => x.Name == localidad);
+        var prods = _productos.Where(x => x.IdLocalidad == idLoc.Id).ToList();
 
         return Ok(prods);
     }
