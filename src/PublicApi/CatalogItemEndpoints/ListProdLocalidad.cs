@@ -38,6 +38,12 @@ public class ListProdLocalidad : ControllerBase
         }
 
         var idLoc = _localidades.Find(x => x.Name == localidad);
+
+        if (idLoc == null)
+        {
+            return BadRequest();
+        }
+
         var prods = _productos.Where(x => x.IdLocalidad == idLoc.Id).ToList();
 
         return Ok(prods);
